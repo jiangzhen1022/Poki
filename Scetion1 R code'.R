@@ -18,7 +18,7 @@ PokiTotalGr <- Poki %>% group_by(grade) %>% summarise(avgTotalGr = mean(total_wo
 PokiTotal <- Poki %>% group_by(grade, gender) %>% summarise(avgTotal = mean(total_words, na.rm=TRUE))
 
 
-#Figure 3, graph for total words in poem vs grade (combine genders).
+#Figure 1, graph for total words in poem vs grade (combine genders).
 grades <- c(1:12)
 grades<-as.character(grades)
 
@@ -27,7 +27,7 @@ g+geom_bar(stat = "identity", fill = "skyblue")+
   labs(x="Grade", title="Average Total Words in Poem Created by Grade 1-12")+
   ylab("Average Total Words")
 
-#Figure 1, graph for total words in poem vs grade, separate genders.
+#Figure 2, graph for total words in poem vs grade, separate genders.
 grades <- c(1:12)
 grades<-as.character(grades)
 
@@ -37,9 +37,23 @@ g+geom_bar(position="dodge", stat = "identity")+
   labs(x="Grade", title="Average Total Words in Poem Created by Grade 1-12 (Genders)")+
   ylab("Average Total Words")
 
-#Figure 2, graph for total poem been created vs grade, separate gender for each bar.
+#Figure 3, graph for total poem been created vs grade, separate gender for each bar.
 g <- ggplot(data = Poki, aes(x = grade))
 g+geom_bar(aes(fill=gender))+
   scale_fill_discrete(name = "Gender")+
   labs(x="Grade", title="Total Number of Poem Submitted by Grade 1-12")+
   ylab("Total Poem Created")
+
+#figure 4, graph for emotion intensity for different grades.
+#find avg for each emotion per grade
+PokiEmotion <- Poki %>% group_by(grade) %>% summarise(Valence = mean(valence, na.rm=TRUE), Arousal = mean(arousal, na.rm=TRUE), Dominance = mean(dominance, na.rm=TRUE), Anger = mean(anger, na.rm=TRUE), Fear = mean(fear, na.rm=TRUE), Sadness=mean(sadness, na.rm=TRUE), Joy=mean(joy, na.rm=TRUE))
+
+#transpose for plot lines
+PokiEmotionT <- PokiEmotion %>% gather(key=emotion, value=Intensity, 2:8)
+
+#plot lines:
+g <- ggplot(data = PokiEmotionT, aes(x=grade, y=Intensity, color=emotion))
+g+geom_line()+
+  geom_point()+
+  labs(x="Grade", title="Words' emotion intensity from poems submitted by childern ")+
+  ylab("Average intensity of emotions")
