@@ -9,7 +9,7 @@ require(tidyverse)
 library("ggplot2")  
 require(ggplot2)
 
-Poki <- read_csv(file="/Users/zjiang/Dropbox (Gladstone)/Zh-10-Personal/jobs/Data Incubator Bootcamp Application/Section 1/Data_sets/PoKi-Poems-by-Kids-master/poki-analysis.csv")
+Poki <- read_csv(file="/Users/zjiang/Dropbox (Gladstone)/Zh-10-Personal/jobs/Data Incubator Bootcamp Application/2, Section 1/Data_sets/PoKi-Poems-by-Kids-master/poki-analysis.csv")
 
 #count mean total words for each grade (combine genders)
 PokiTotalGr <- Poki %>% group_by(grade) %>% summarise(avgTotalGr = mean(total_words, na.rm=TRUE))
