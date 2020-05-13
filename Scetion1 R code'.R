@@ -14,11 +14,11 @@ Poki <- read_csv(file="/Users/zjiang/Dropbox (Gladstone)/Zh-10-Personal/jobs/Dat
 #count mean total words for each grade (combine genders)
 PokiTotalGr <- Poki %>% group_by(grade) %>% summarise(avgTotalGr = mean(total_words, na.rm=TRUE))
 
+#Figure 1, graph for total words in poem vs grade (combine genders).
 #count mean total words for each grade & gender
 PokiTotal <- Poki %>% group_by(grade, gender) %>% summarise(avgTotal = mean(total_words, na.rm=TRUE))
 
 
-#Figure 1, graph for total words in poem vs grade (combine genders).
 grades <- c(1:12)
 grades<-as.character(grades)
 
